@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "lifestealaus",
+	"version": "${version}",
+	"name": "LifestealAUS",
+	"description": "The LifestealAUS Fabric Mod",
+	"authors": [
+		"Unknown_303"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "All Rights Reserved",
+	"icon": "assets/lifestealaus/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.riverstone.unknown303.lifestealaus.LifestealAUS"
+		],
+		"client": [
+			"com.riverstone.unknown303.lifestealaus.LifestealAUSClient"
+		],
+		"fabric-datagen": [
+			"com.riverstone.unknown303.lifestealaus.LifestealAUSDataGenerator"
+		]
+	},
+	"mixins": [
+		"lifestealaus.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
