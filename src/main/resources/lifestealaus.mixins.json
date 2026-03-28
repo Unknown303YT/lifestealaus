@@ -1,14 +1,14 @@
 {
-	"required": true,
-	"package": "com.riverstone.unknown303.lifestealaus.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"ExampleMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+  "required": true,
+  "package": "com.riverstone.unknown303.lifestealaus.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ModEntityDataSaverMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
 	}
 }
