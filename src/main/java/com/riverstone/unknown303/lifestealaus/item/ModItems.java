@@ -1,6 +1,7 @@
 package com.riverstone.unknown303.lifestealaus.item;
 
 import com.riverstone.unknown303.lifestealaus.LifestealAUS;
+import com.riverstone.unknown303.lifestealaus.item.custom.HeartItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -11,6 +12,8 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 public class ModItems {
+    public static final Item HEART = registerItem("heart", HeartItem::new);
+
     public static Item registerItem(String name, Function<Item.Settings, Item> function) {
         Identifier id = Identifier.of(LifestealAUS.MOD_ID, name);
         return Registry.register(Registries.ITEM, id,
