@@ -1,6 +1,7 @@
 package com.riverstone.unknown303.lifestealaus;
 
 import com.riverstone.unknown303.lifestealaus.block.ModBlocks;
+import com.riverstone.unknown303.lifestealaus.event.ModEvents;
 import com.riverstone.unknown303.lifestealaus.item.ModItemGroups;
 import com.riverstone.unknown303.lifestealaus.item.ModItems;
 import com.riverstone.unknown303.lifestealaus.sound.ModSounds;
@@ -30,6 +31,8 @@ public class LifestealAUS implements ModInitializer {
                 FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),
                 PackActivationType.NORMAL);
         LOGGER.info("BuiltIn Resource Pack Initialized!");
+
+        ModEvents.register();
 
         ModSounds.register();
 		LOGGER.info("LifestealAUS Initialized!");
