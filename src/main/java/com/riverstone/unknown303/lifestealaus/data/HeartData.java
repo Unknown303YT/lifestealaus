@@ -3,6 +3,7 @@ package com.riverstone.unknown303.lifestealaus.data;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.riverstone.unknown303.lifestealaus.LifestealAUS;
+import com.riverstone.unknown303.lifestealaus.sound.ModSounds;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -25,6 +26,8 @@ public class HeartData extends PersistentState {
 
     private static final Text DEATH_BANNED_MSG = Text.translatable("multiplayer.lifestealaus.disconnect.banned.death")
             .withColor(0xFF5555);
+    public static final Identifier ATTRIBUTE_MODIFIER_ID = Identifier.of(LifestealAUS.MOD_ID, "hearts");
+
     public static HeartData get(ServerWorld world) {
         return world.getPersistentStateManager().getOrCreate(ModPersistentStates.HEART_DATA);
     }
@@ -32,7 +35,7 @@ public class HeartData extends PersistentState {
     private final Map<UUID, Double> hearts;
 
     private HeartData(Map<UUID, Double> hearts) {
-        this.hearts = hearts;
+        this.hearts = new HashMap<>(hearts);
     }
 
     public HeartData() {
@@ -47,7 +50,7 @@ public class HeartData extends PersistentState {
         double heartCount = getHearts(player.getUuid()) + amount;
         hearts.put(player.getUuid(), heartCount);
         markDirty();
-        player.getAttributeInstance(EntityAttributes.MAX_HEALTH).addTemporaryModifier(createHeartsModifier(heartCount));
+        fixAttribute(player);
         return heartCount;
     }
 
@@ -57,15 +60,16 @@ public class HeartData extends PersistentState {
         markDirty();
         if (isDeathBanned(player)) {
             player.getEntityWorld().getServer().sendMessage(createBannedChatMsg(player));
+            player.getEntityWorld().getServer().getPlayerManager().getPlayerList().forEach(serverPlayer -> serverPlayer.playSound(ModSounds.DEATH_BAN));
             player.networkHandler.disconnect(DEATH_BANNED_MSG);
         }
-        player.getAttributeInstance(EntityAttributes.MAX_HEALTH).addTemporaryModifier(createHeartsModifier(heartCount));
+        fixAttribute(player);
         return heartCount;
     }
 
-    @Override
-    public void markDirty() {
-        super.markDirty();
+    public void fixAttribute(ServerPlayerEntity player) {
+        player.getAttributeInstance(EntityAttributes.MAX_HEALTH).removeModifier(ATTRIBUTE_MODIFIER_ID);
+        player.getAttributeInstance(EntityAttributes.MAX_HEALTH).addPersistentModifier(createHeartsModifier(getHearts(player.getUuid())));
     }
 
     private boolean isDeathBanned(ServerPlayerEntity player) {
@@ -77,6 +81,6 @@ public class HeartData extends PersistentState {
     }
 
     private EntityAttributeModifier createHeartsModifier(double hearts) {
-        return new EntityAttributeModifier(Identifier.of(LifestealAUS.MOD_ID, "hearts"), hearts - 20D, EntityAttributeModifier.Operation.ADD_VALUE);
+        return new EntityAttributeModifier(ATTRIBUTE_MODIFIER_ID, hearts - 20D, EntityAttributeModifier.Operation.ADD_VALUE);
     }
 }
