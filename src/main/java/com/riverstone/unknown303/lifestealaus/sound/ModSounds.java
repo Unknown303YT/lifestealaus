@@ -14,4 +14,8 @@ public class ModSounds {
         Identifier id = Identifier.of(LifestealAUS.MOD_ID, name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
+
+    public static void register() {
+        LifestealAUS.LOGGER.info("Registering Sounds for " + LifestealAUS.MOD_ID);
+    }
 }

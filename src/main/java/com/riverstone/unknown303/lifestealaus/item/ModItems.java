@@ -2,19 +2,23 @@ package com.riverstone.unknown303.lifestealaus.item;
 
 import com.riverstone.unknown303.lifestealaus.LifestealAUS;
 import com.riverstone.unknown303.lifestealaus.item.custom.HeartItem;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 import java.util.function.Function;
 
 public class ModItems {
-    public static final Item HEART = registerItem("heart", HeartItem::new);
+    public static final Item HEART = registerItem("heart",
+            settings -> new HeartItem(settings.rarity(Rarity.RARE)
+                            .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
 
-    public static Item registerItem(String name, Function<Item.Settings, Item> function) {
+    private static Item registerItem(String name, Function<Item.Settings, Item> function) {
         Identifier id = Identifier.of(LifestealAUS.MOD_ID, name);
         return Registry.register(Registries.ITEM, id,
                 function.apply(new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, id))));

@@ -1,12 +1,12 @@
 {
   "heart_equip": {
-    "subtitle": "sounds.lifestealaus.heart_equip",
+    "subtitle": "subtitles.lifestealaus.heart_equip",
     "sounds": [
       "lifestealaus:heart_equip"
     ]
   },
   "death_ban": {
-    "subtitle": "sounds.lifestealaus.death_ban",
+    "subtitle": "subtitles.lifestealaus.death_ban",
     "sounds": [
       "lifestealaus:death_ban"
     ]
