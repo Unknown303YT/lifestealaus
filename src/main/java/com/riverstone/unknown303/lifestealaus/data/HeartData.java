@@ -24,7 +24,7 @@ public class HeartData extends PersistentState {
                     .orElse(new HashMap<>())
                     .forGetter(data -> data.hearts)).apply(instance, HeartData::new));
 
-    private static final Text DEATH_BANNED_MSG = Text.translatable("multiplayer.lifestealaus.disconnect.banned.death")
+    public static final Text DEATH_BANNED_MSG = Text.translatable("multiplayer.lifestealaus.disconnect.banned.death")
             .withColor(0xFF5555);
     public static final Identifier ATTRIBUTE_MODIFIER_ID = Identifier.of(LifestealAUS.MOD_ID, "hearts");
 
