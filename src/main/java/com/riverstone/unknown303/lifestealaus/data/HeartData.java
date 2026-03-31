@@ -12,9 +12,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.PersistentState;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class HeartData extends PersistentState {
     public static final Codec<HeartData> CODEC =
@@ -65,6 +63,24 @@ public class HeartData extends PersistentState {
         }
         fixAttribute(player);
         return heartCount;
+    }
+
+    public boolean revive(UUID playerId) {
+        if (getHearts(playerId) > 0)
+            return false;
+
+        hearts.put(playerId, 8D);
+        markDirty();
+        return true;
+    }
+
+    public List<UUID> getBannedPlayers() {
+        List<UUID> bannedPlayers = new ArrayList<>();
+        for (Map.Entry<UUID, Double> entry : hearts.entrySet())
+            if (entry.getValue() <= 0)
+                bannedPlayers.add(entry.getKey());
+
+        return bannedPlayers;
     }
 
     public void fixAttribute(ServerPlayerEntity player) {

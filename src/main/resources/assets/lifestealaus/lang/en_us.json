@@ -4,5 +4,6 @@
   "subtitle.lifestealaus.heart_equip": "Heart equips",
   "subtitle.lifestealaus.death_ban": "Player banned",
   "multiplayer.lifestealaus.disconnect.banned.death": "You don't have any hearts left!",
-  "multiplayer.lifestealaus.player.left.banned": "%s was banned"
+  "multiplayer.lifestealaus.player.left.banned": "%s was banned",
+  "container.lifestealaus.revive": "Revive Beacon"
 }
