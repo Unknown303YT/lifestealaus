@@ -1,6 +1,7 @@
 package com.riverstone.unknown303.lifestealaus.screen;
 
 import com.riverstone.unknown303.lifestealaus.data.HeartData;
+import com.riverstone.unknown303.lifestealaus.sound.ModSounds;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -38,8 +39,10 @@ public class ReviveScreenHandler extends GenericContainerScreenHandler {
                 UUID playerUUID = clicked.get(DataComponentTypes.PROFILE).getGameProfile().id();
                 HeartData.get(world).revive(playerUUID);
                 world.removeBlock(beaconPos, false);
-                if (player instanceof ServerPlayerEntity serverPlayer)
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    serverPlayer.playSound(ModSounds.REVIVE);
                     serverPlayer.closeHandledScreen();
+                }
             }
         }
     }

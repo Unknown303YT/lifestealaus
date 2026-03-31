@@ -1,3 +1,6 @@
 // 1.21.11	-999999999-01-01T00:00:00	LifestealAUS/Model Definitions
+3e71f5eafe16863e5697f4ef0571801e5bc9177e assets/lifestealaus/blockstates/revive_beacon.json
 feeb3cea0b2e187c8db4333f591254eb707d4db1 assets/lifestealaus/items/heart.json
+46422c8a6d804ee77782a79140a221f2ef9c7b8b assets/lifestealaus/items/revive_beacon.json
 6cea5846217733c65e40599d2333ce8b4d5124d3 assets/lifestealaus/models/item/heart.json
+7174250bcb36b7ad8db2ebd1b0ca4778278276e9 assets/lifestealaus/models/item/revive_beacon.json

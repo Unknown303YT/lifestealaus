@@ -1,5 +1,6 @@
 package com.riverstone.unknown303.lifestealaus.datagen;
 
+import com.riverstone.unknown303.lifestealaus.block.ModBlocks;
 import com.riverstone.unknown303.lifestealaus.item.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -17,12 +18,18 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-
+        blockStateModelGenerator.blockStateCollector.accept(
+                BlockStateModelGenerator.createSingletonBlockState(
+                        ModBlocks.REVIVE_BEACON, BlockStateModelGenerator.createWeightedVariant(Identifier.ofVanilla("block/beacon"))
+                )
+        );
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.HEART,
                 new Model(Optional.of(Identifier.ofVanilla("item/nether_star")), Optional.empty()));
+        itemModelGenerator.register(ModBlocks.REVIVE_BEACON.asItem(),
+                new Model(Optional.of(Identifier.ofVanilla("block/beacon")), Optional.empty()));
     }
 }

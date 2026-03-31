@@ -1,14 +1,20 @@
 {
-  "heart_equip": {
+  "heart.equip": {
     "subtitle": "subtitles.lifestealaus.heart_equip",
     "sounds": [
       "lifestealaus:heart_equip"
     ]
   },
-  "death_ban": {
+  "player.death_banned": {
     "subtitle": "subtitles.lifestealaus.death_ban",
     "sounds": [
       "lifestealaus:death_ban"
+    ]
+  },
+  "player.revived": {
+    "subtitle": "subtitles.lifestealaus.revive",
+    "sounds": [
+      "lifestealaus:revive"
     ]
   }
 }

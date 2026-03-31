@@ -41,17 +41,10 @@ public class ModEvents {
     };
     public static final ServerPlayerEvents.CopyFrom COPY_FROM = (oldPlayer, newPlayer, alive) ->
             HeartData.get(newPlayer.getEntityWorld()).fixAttribute(newPlayer);
-    public static final ServerPlayConnectionEvents.Init PLAYER_INIT = (handler, server) -> {
-        ServerPlayerEntity player = handler.getPlayer();
-        HeartData data = HeartData.get(player.getEntityWorld());
-        if (data.getHearts(player.getUuid()) <= 0)
-            player.networkHandler.disconnect(HeartData.DEATH_BANNED_MSG);
-    };
 
     public static void register() {
         ServerLivingEntityEvents.AFTER_DEATH.register(AFTER_DEATH);
         ServerPlayerEvents.COPY_FROM.register(COPY_FROM);
-        ServerPlayConnectionEvents.INIT.register(PLAYER_INIT);
         ServerPlayConnectionEvents.JOIN.register(JOIN);
     }
 }

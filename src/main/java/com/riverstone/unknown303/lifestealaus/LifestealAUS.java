@@ -1,9 +1,11 @@
 package com.riverstone.unknown303.lifestealaus;
 
 import com.riverstone.unknown303.lifestealaus.block.ModBlocks;
+import com.riverstone.unknown303.lifestealaus.block.entity.ModBlockEntities;
 import com.riverstone.unknown303.lifestealaus.event.ModEvents;
 import com.riverstone.unknown303.lifestealaus.item.ModItemGroups;
 import com.riverstone.unknown303.lifestealaus.item.ModItems;
+import com.riverstone.unknown303.lifestealaus.misc.ModStats;
 import com.riverstone.unknown303.lifestealaus.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 
@@ -22,6 +24,9 @@ public class LifestealAUS implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Initializing LifestealAUS...");
         ModItemGroups.register();
+
+        ModStats.register();
+
         ModItems.register();
         ModBlocks.register();
 
@@ -34,6 +39,7 @@ public class LifestealAUS implements ModInitializer {
 
         ModEvents.register();
 
+        ModBlockEntities.register();
         ModSounds.register();
 		LOGGER.info("LifestealAUS Initialized!");
 	}

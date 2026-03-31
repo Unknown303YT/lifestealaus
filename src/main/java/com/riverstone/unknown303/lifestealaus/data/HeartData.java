@@ -57,7 +57,7 @@ public class HeartData extends PersistentState {
         hearts.put(player.getUuid(), heartCount);
         markDirty();
         if (isDeathBanned(player)) {
-            player.getEntityWorld().getServer().sendMessage(createBannedChatMsg(player));
+            player.getEntityWorld().getServer().getPlayerManager().broadcast(createBannedChatMsg(player), false);
             player.getEntityWorld().getServer().getPlayerManager().getPlayerList().forEach(serverPlayer -> serverPlayer.playSound(ModSounds.DEATH_BAN));
             player.networkHandler.disconnect(DEATH_BANNED_MSG);
         }

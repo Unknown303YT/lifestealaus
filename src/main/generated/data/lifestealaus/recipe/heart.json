@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": "minecraft:diamond_block",
+    "G": "minecraft:gold_block",
+    "N": "minecraft:netherite_ingot",
+    "O": "minecraft:obsidian",
+    "S": "minecraft:nether_star"
+  },
+  "pattern": [
+    "GNG",
+    "OSO",
+    "DND"
+  ],
+  "result": {
+    "count": 1,
+    "id": "lifestealaus:heart"
+  }
+}

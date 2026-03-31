@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 public class ModSounds {
     public static final SoundEvent HEART_EQUIP = registerSoundEvent("heart.equip");
     public static final SoundEvent DEATH_BAN = registerSoundEvent("player.death_banned");
+    public static final SoundEvent REVIVE = registerSoundEvent("player.revived");
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(LifestealAUS.MOD_ID, name);
