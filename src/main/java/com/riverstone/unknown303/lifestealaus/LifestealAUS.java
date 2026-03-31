@@ -2,6 +2,7 @@ package com.riverstone.unknown303.lifestealaus;
 
 import com.riverstone.unknown303.lifestealaus.block.ModBlocks;
 import com.riverstone.unknown303.lifestealaus.block.entity.ModBlockEntities;
+import com.riverstone.unknown303.lifestealaus.command.ModCommands;
 import com.riverstone.unknown303.lifestealaus.event.ModEvents;
 import com.riverstone.unknown303.lifestealaus.item.ModItemGroups;
 import com.riverstone.unknown303.lifestealaus.item.ModItems;
@@ -38,6 +39,7 @@ public class LifestealAUS implements ModInitializer {
         LOGGER.info("BuiltIn Resource Pack Initialized!");
 
         ModEvents.register();
+        ModCommands.register();
 
         ModBlockEntities.register();
         ModSounds.register();

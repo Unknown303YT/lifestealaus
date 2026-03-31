@@ -1,17 +1,15 @@
 package com.riverstone.unknown303.lifestealaus.command;
 
-import com.mojang.brigadier.Command;
-import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.riverstone.unknown303.lifestealaus.data.HeartData;
+import com.riverstone.unknown303.lifestealaus.item.ModItems;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.command.argument.ArgumentTypes;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 
 public class ModCommands {
     public static final LiteralArgumentBuilder<ServerCommandSource> WITHDRAW_COMMAND = CommandManager.literal("withdraw")
@@ -21,6 +19,20 @@ public class ModCommands {
                 int toWithdraw = context.getArgument("hearts", Integer.class);
                 ServerPlayerEntity player = context.getSource().getPlayer();
                 HeartData data = HeartData.get(player.getEntityWorld());
-                if (toWithdraw >= )
-            })
+                if (toWithdraw >= data.getHearts(player.getUuid()) - 1) {
+                    context.getSource().sendError(Text.translatable("commands.lifestealaus.withdraw.heart_fail"));
+                    return 0;
+                }
+
+                data.removeHearts(player, toWithdraw * 2);
+                player.giveOrDropStack(new ItemStack(ModItems.HEART, toWithdraw));
+                context.getSource().sendFeedback(() -> Text.translatable("commands.lifestealaus.withdraw.success", toWithdraw), false);
+                return 1;
+            });
+
+    public static void register() {
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            dispatcher.register(WITHDRAW_COMMAND);
+        });
+    }
 }

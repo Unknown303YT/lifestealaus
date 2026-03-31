@@ -6,5 +6,7 @@
   "subtitles.lifestealaus.revive": "Player revived",
   "multiplayer.lifestealaus.disconnect.banned.death": "You don't have any hearts left!",
   "multiplayer.lifestealaus.player.left.banned": "%s was banned",
-  "container.lifestealaus.revive": "Revive Beacon"
+  "container.lifestealaus.revive": "Revive Beacon",
+  "commands.lifestealaus.withdraw.success": "Successfully withdrew %s hearts!",
+  "commands.lifestealaus.withdraw.heart_fail": "You do not have enough hearts for that!"
 }
