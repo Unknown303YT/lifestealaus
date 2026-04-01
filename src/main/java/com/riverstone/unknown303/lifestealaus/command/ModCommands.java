@@ -13,10 +13,10 @@ import net.minecraft.text.Text;
 
 public class ModCommands {
     public static final LiteralArgumentBuilder<ServerCommandSource> WITHDRAW_COMMAND = CommandManager.literal("withdraw")
-            .then(CommandManager.argument("hearts", IntegerArgumentType.integer()))
+            .then(CommandManager.argument("hearts", IntegerArgumentType.integer(1)))
             .requires(ServerCommandSource::isExecutedByPlayer)
             .executes(context -> {
-                int toWithdraw = context.getArgument("hearts", Integer.class);
+                int toWithdraw = IntegerArgumentType.getInteger(context, "hearts");
                 ServerPlayerEntity player = context.getSource().getPlayer();
                 HeartData data = HeartData.get(player.getEntityWorld());
                 if (toWithdraw >= data.getHearts(player.getUuid()) - 1) {
