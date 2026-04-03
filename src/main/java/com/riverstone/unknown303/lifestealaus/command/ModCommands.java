@@ -16,15 +16,15 @@ public class ModCommands {
             .then(CommandManager.argument("hearts", IntegerArgumentType.integer(1)))
             .requires(ServerCommandSource::isExecutedByPlayer)
             .executes(context -> {
-                int toWithdraw = IntegerArgumentType.getInteger(context, "hearts");
+                int toWithdraw = IntegerArgumentType.getInteger(context, "hearts") * 2;
                 ServerPlayerEntity player = context.getSource().getPlayer();
                 HeartData data = HeartData.get(player.getEntityWorld());
-                if (toWithdraw >= data.getHearts(player.getUuid()) - 1) {
+                if (toWithdraw >= data.getHearts(player.getUuid()) - 2) {
                     context.getSource().sendError(Text.translatable("commands.lifestealaus.withdraw.heart_fail"));
                     return 0;
                 }
 
-                data.removeHearts(player, toWithdraw * 2);
+                data.removeHearts(player, toWithdraw);
                 player.giveOrDropStack(new ItemStack(ModItems.HEART, toWithdraw));
                 context.getSource().sendFeedback(() -> Text.translatable("commands.lifestealaus.withdraw.success", toWithdraw), false);
                 return 1;
