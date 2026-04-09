@@ -5,6 +5,12 @@
       "lifestealaus:heart_equip"
     ]
   },
+  "heart.equip.fail": {
+    "subtitle":"subtitles.lifestealaus.heart_equip.fail",
+    "sounds": [
+      "lifestealaus:heart_equip_fail"
+    ]
+  },
   "player.death_banned": {
     "subtitle": "subtitles.lifestealaus.death_ban",
     "sounds": [

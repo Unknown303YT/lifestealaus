@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 
 public class ModSounds {
     public static final SoundEvent HEART_EQUIP = registerSoundEvent("heart.equip");
+    public static final SoundEvent HEART_EQUIP_FAIL = registerSoundEvent("heart.equip.fail");
     public static final SoundEvent DEATH_BAN = registerSoundEvent("player.death_banned");
     public static final SoundEvent REVIVE = registerSoundEvent("player.revived");
 

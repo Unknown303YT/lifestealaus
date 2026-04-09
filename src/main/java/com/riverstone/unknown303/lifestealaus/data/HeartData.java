@@ -17,10 +17,16 @@ import java.util.*;
 public class HeartData extends PersistentState {
     public static final Codec<HeartData> CODEC =
             RecordCodecBuilder.create(instance ->
-                    instance.group(Codec.unboundedMap(Codec.STRING.xmap(UUID::fromString, UUID::toString), Codec.DOUBLE)
-                    .fieldOf("hearts")
-                    .orElse(new HashMap<>())
-                    .forGetter(data -> data.hearts)).apply(instance, HeartData::new));
+                    instance.group(
+                            Codec.unboundedMap(Codec.STRING.xmap(UUID::fromString, UUID::toString), Codec.DOUBLE)
+                                    .fieldOf("hearts")
+                                    .orElse(new HashMap<>())
+                                    .forGetter(data -> data.hearts),
+                            Codec.DOUBLE
+                                    .fieldOf("maxHearts")
+                                    .orElse(40D)
+                                    .forGetter(data -> data.maxHearts))
+                            .apply(instance, HeartData::new));
 
     public static final Text DEATH_BANNED_MSG = Text.translatable("multiplayer.lifestealaus.disconnect.banned.death")
             .withColor(0xFF5555);
@@ -31,13 +37,16 @@ public class HeartData extends PersistentState {
     }
 
     private final Map<UUID, Double> hearts;
+    private double maxHearts;
 
-    private HeartData(Map<UUID, Double> hearts) {
+    private HeartData(Map<UUID, Double> hearts, double maxHearts) {
         this.hearts = new HashMap<>(hearts);
+        this.maxHearts = maxHearts;
     }
 
     public HeartData() {
         this.hearts = new HashMap<>();
+        this.maxHearts = 40D;
     }
 
     public double getHearts(UUID player) {
@@ -46,6 +55,8 @@ public class HeartData extends PersistentState {
 
     public double addHearts(ServerPlayerEntity player, double amount) {
         double heartCount = getHearts(player.getUuid()) + amount;
+        if (heartCount > getMaxHearts())
+            return -1;
         hearts.put(player.getUuid(), heartCount);
         markDirty();
         fixAttribute(player);
@@ -72,6 +83,21 @@ public class HeartData extends PersistentState {
         hearts.put(playerId, 8D);
         markDirty();
         return true;
+    }
+
+    public int setAll(double amount) {
+        hearts.replaceAll((i, v) -> amount);
+        markDirty();
+        return hearts.size();
+    }
+
+    public double getMaxHearts() {
+        return this.maxHearts;
+    }
+
+    public void setMaxHearts(double maxHearts) {
+        this.maxHearts = maxHearts;
+        markDirty();
     }
 
     public List<UUID> getBannedPlayers() {

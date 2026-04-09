@@ -8,5 +8,8 @@
   "multiplayer.lifestealaus.player.left.banned": "%s was banned",
   "container.lifestealaus.revive": "Revive Beacon",
   "commands.lifestealaus.withdraw.success": "Successfully withdrew %s hearts!",
-  "commands.lifestealaus.withdraw.heart_fail": "You do not have enough hearts for that!"
+  "commands.lifestealaus.withdraw.heart_fail": "You do not have enough hearts for that!",
+  "commands.lifestealaus.lsaus.hearts.remove.fail": "%s does not have enough hearts for that!",
+  "commands.lifestealaus.lsaus.hearts.get.success": "%s has %s hearts.",
+  "item.lifestealaus.heart.use.fail": "You already have %s hearts!"
 }

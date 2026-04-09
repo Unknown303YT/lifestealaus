@@ -23,8 +23,19 @@ public class ModEvents {
 
         data.removeHearts(player, 2);
         if (damageSource.getAttacker() instanceof ServerPlayerEntity attacker) {
-            data.addHearts(attacker, 2);
-            data.fixAttribute(attacker);
+            if (data.addHearts(attacker, 2) == -1) {
+                ItemStack itemStack = new ItemStack(ModItems.HEART, 1);
+
+                ItemEntity item = new ItemEntity(
+                        player.getEntityWorld(),
+                        player.getX(),
+                        player.getY(),
+                        player.getZ(),
+                        itemStack
+                );
+
+                player.getEntityWorld().spawnEntity(item);
+            }
         } else {
             ItemStack itemStack = new ItemStack(ModItems.HEART, 1);
 
