@@ -1,8 +1,11 @@
 package com.riverstone.unknown303.lifestealaus.sound;
 
 import com.riverstone.unknown303.lifestealaus.LifestealAUS;
+import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
@@ -19,5 +22,22 @@ public class ModSounds {
 
     public static void register() {
         LifestealAUS.LOGGER.info("Registering Sounds for " + LifestealAUS.MOD_ID);
+    }
+
+    public static void playSoundToPlayer(ServerPlayerEntity player, SoundEvent sound, SoundCategory category) {
+        playSoundToPlayer(player, sound, category, 1.0F, 1.0F);
+    }
+
+    public static void playSoundToPlayer(ServerPlayerEntity player, SoundEvent sound, SoundCategory category, float volume, float pitch) {
+        player.networkHandler.sendPacket(new PlaySoundS2CPacket(
+                Registries.SOUND_EVENT.getEntry(sound),
+                category,
+                player.getX(),
+                player.getY(),
+                player.getZ(),
+                volume,
+                pitch,
+                player.getRandom().nextLong()
+        ));
     }
 }

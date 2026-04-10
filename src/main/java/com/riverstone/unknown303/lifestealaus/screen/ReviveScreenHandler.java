@@ -13,6 +13,7 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.UUID;
@@ -40,7 +41,7 @@ public class ReviveScreenHandler extends GenericContainerScreenHandler {
                 HeartData.get(world).revive(playerUUID);
                 world.removeBlock(beaconPos, false);
                 if (player instanceof ServerPlayerEntity serverPlayer) {
-                    serverPlayer.playSound(ModSounds.REVIVE);
+                    ModSounds.playSoundToPlayer(serverPlayer, ModSounds.REVIVE, SoundCategory.MASTER);
                     serverPlayer.closeHandledScreen();
                 }
             }

@@ -8,6 +8,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.PersistentState;
@@ -69,7 +70,7 @@ public class HeartData extends PersistentState {
         markDirty();
         if (isDeathBanned(player)) {
             player.getEntityWorld().getServer().getPlayerManager().broadcast(createBannedChatMsg(player), false);
-            player.getEntityWorld().getServer().getPlayerManager().getPlayerList().forEach(serverPlayer -> serverPlayer.playSound(ModSounds.DEATH_BAN));
+            player.getEntityWorld().getServer().getPlayerManager().getPlayerList().forEach(serverPlayer -> ModSounds.playSoundToPlayer(serverPlayer, ModSounds.DEATH_BAN, SoundCategory.MASTER));
             player.networkHandler.disconnect(DEATH_BANNED_MSG);
         }
         fixAttribute(player);

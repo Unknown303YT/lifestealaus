@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -28,11 +29,11 @@ public class HeartItem extends Item {
 
             if (result == -1D) {
                 user.sendMessage(Text.translatable("item.lifestealaus.heart.use.fail", data.getMaxHearts() / 2).withColor(0xFF5555), false);
-                user.playSound(ModSounds.HEART_EQUIP_FAIL, 1.0F, 0.5F);
+                ModSounds.playSoundToPlayer((ServerPlayerEntity) user, ModSounds.HEART_EQUIP_FAIL, SoundCategory.PLAYERS, 1.0F, 0.5F);
                 return ActionResult.FAIL;
             }
 
-            user.playSound(ModSounds.HEART_EQUIP);
+            ModSounds.playSoundToPlayer((ServerPlayerEntity) user, ModSounds.HEART_EQUIP, SoundCategory.PLAYERS);
             user.incrementStat(Stats.USED.getOrCreateStat(this));
             if (!user.getAbilities().creativeMode)
                 itemStack.decrement(1);
