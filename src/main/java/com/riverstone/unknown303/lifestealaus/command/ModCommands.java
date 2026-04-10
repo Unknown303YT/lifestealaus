@@ -36,40 +36,36 @@ public class ModCommands {
                     }))
             .requires(ServerCommandSource::isExecutedByPlayer);
 
-    public static final LiteralArgumentBuilder<ServerCommandSource> ADMIN_COMMAND = CommandManager.literal("lsaus")
-            .then(
-                    CommandManager.literal("fix").executes(context -> {
-                        for (ServerWorld world : context.getSource().getServer().getWorlds()) {
-                            HeartData data = HeartData.get(world);
-                            for (ServerPlayerEntity player : world.getPlayers())
-                                data.fixAttribute(player);
-                        }
-                        return 1;
-                    })
-            ).then(
+    public static final LiteralArgumentBuilder<ServerCommandSource> ADMIN_COMMAND = CommandManager.literal("lsaus").then(
+            CommandManager.literal("fix").executes(context -> {
+                for (ServerWorld world : context.getSource().getServer().getWorlds()) {
+                    HeartData data = HeartData.get(world);
+                    for (ServerPlayerEntity player : world.getPlayers())
+                        data.fixAttribute(player);
+                }
+                return 1;
+            })).then(
                     CommandManager.literal("hearts").then(
                             CommandManager.literal("set").then(
                                     CommandManager.literal("all")
-                                                    .then(CommandManager.argument("count", IntegerArgumentType.integer(1))
-                                                            .executes(context ->
-                                                                    HeartData.get(context.getSource().getWorld()).setAll(IntegerArgumentType.getInteger(context, "count"))))
-                                            .then(
-                                    CommandManager.argument("players", EntityArgumentType.players())
                                             .then(CommandManager.argument("count", IntegerArgumentType.integer(1))
-                                                    .executes(context -> setHearts(IntegerArgumentType.getInteger(context, "count"), EntityArgumentType.getPlayers(context, "players")))))
-                            ).then(
-                                    CommandManager.literal("add").then(
-                                            CommandManager.argument("players", EntityArgumentType.players())
-                                                    .then(CommandManager.argument("count", IntegerArgumentType.integer(1))
-                                                            .executes(context -> addHearts(IntegerArgumentType.getInteger(context, "count"), EntityArgumentType.getPlayers(context, "players"))))
-                                    )
-                            ).then(
-                                    CommandManager.literal("remove").then(
-                                            CommandManager.argument("players", EntityArgumentType.players())
-                                                    .then(CommandManager.argument("count", IntegerArgumentType.integer(1))
-                                                            .executes(context -> removeHearts(context, IntegerArgumentType.getInteger(context, "count"), EntityArgumentType.getPlayers(context, "players"))))
+                                                    .executes(context ->
+                                                            HeartData.get(context.getSource().getWorld()).setAll(IntegerArgumentType.getInteger(context, "count")))).then(
+                                                                    CommandManager.argument("count", IntegerArgumentType.integer(1))
+                                                            .executes(context -> setHearts(IntegerArgumentType.getInteger(context, "count"), EntityArgumentType.getPlayers(context, "players")))
+                                            ).then(
+                                                    CommandManager.literal("add").then(
+                                                            CommandManager.argument("players", EntityArgumentType.players())
+                                                                    .then(CommandManager.argument("count", IntegerArgumentType.integer(1))
+                                                                            .executes(context -> addHearts(IntegerArgumentType.getInteger(context, "count"), EntityArgumentType.getPlayers(context, "players"))))
                                                     )
-                                    )
+                                            ).then(
+                                                    CommandManager.literal("remove").then(
+                                                            CommandManager.argument("players", EntityArgumentType.players())
+                                                                    .then(CommandManager.argument("count", IntegerArgumentType.integer(1))
+                                                                            .executes(context -> removeHearts(context, IntegerArgumentType.getInteger(context, "count"), EntityArgumentType.getPlayers(context, "players"))))
+                                                    )
+                                            )
                             ).then(CommandManager.literal("get").then(
                                     CommandManager.argument("player", EntityArgumentType.player())
                                             .executes(context -> {
@@ -77,8 +73,8 @@ public class ModCommands {
                                                 context.getSource().sendFeedback(() -> Text.translatable("commands.lifestealaus.lsaus.hearts.get.success", player.getDisplayName(), HeartData.get(player.getEntityWorld()).getHearts(player.getUuid())), true);
                                                 return 1;
                                             })
-                    ))
-            );
+                            ))
+                    ));
 
     private static int addHearts(int amount, Collection<ServerPlayerEntity> players) {
         double trueAmount = amount * 2;
